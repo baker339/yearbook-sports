@@ -1,20 +1,31 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-WORKDIR /app
-EXPOSE 5000
-EXPOSE 5001
-
+# Use the official .NET SDK image for build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ["YearbookSports.API/YearbookSports.API.csproj", "YearbookSports.API/"]
-RUN dotnet restore "YearbookSports.API/YearbookSports.API.csproj"
-COPY . .
-WORKDIR "/src/YearbookSports.API"
-RUN dotnet build "YearbookSports.API.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "YearbookSports.API.csproj" -c Release -o /app/publish
+# Copy project files
+COPY YearbookSports.API/YearbookSports.API.csproj YearbookSports.API/
 
-FROM base AS final
+# Restore as distinct layers
+RUN dotnet restore YearbookSports.API/YearbookSports.API.csproj
+
+# Copy everything else (including subfolders)
+COPY YearbookSports.API YearbookSports.API
+
+WORKDIR /src/YearbookSports.API
+RUN dotnet publish -c Release -o /app/publish
+
+# Runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "YearbookSports.API.dll"] 
+
+# Install dotnet-ef tool for migrations
+RUN dotnet tool install --global dotnet-ef && \
+    export PATH="$PATH:/root/.dotnet/tools"
+
+COPY --from=build /app/publish .
+COPY --from=build /src/YearbookSports.API/entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
+
+EXPOSE 80
+ENV PATH="$PATH:/root/.dotnet/tools"
+ENTRYPOINT ["/app/entrypoint.sh"] 
