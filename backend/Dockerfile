@@ -14,18 +14,14 @@ COPY YearbookSports.API YearbookSports.API
 WORKDIR /src/YearbookSports.API
 RUN dotnet publish -c Release -o /app/publish
 
-# Runtime image (use SDK so dotnet-ef is available)
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS final
-WORKDIR /app
-
-# Install dotnet-ef tool for migrations
+# Run migrations during build
 RUN dotnet tool install --global dotnet-ef && \
-    export PATH="$PATH:/root/.dotnet/tools"
+    export PATH="$PATH:/root/.dotnet/tools" && \
+    dotnet ef database update --no-build --project YearbookSports.API.csproj
 
+# Runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+WORKDIR /app
 COPY --from=build /app/publish .
-COPY --from=build /src/YearbookSports.API/entrypoint.sh ./entrypoint.sh
-RUN chmod +x ./entrypoint.sh
-
 EXPOSE 80
-ENV PATH="$PATH:/root/.dotnet/tools"
-ENTRYPOINT ["/app/entrypoint.sh"] 
+ENTRYPOINT ["dotnet", "YearbookSports.API.dll"] 
