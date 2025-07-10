@@ -22,15 +22,8 @@ namespace YearbookSports.API.Controllers
         [HttpPost("run")]
         public IActionResult RunMigrations()
         {
-#if DEBUG
-            _context.Database.Migrate();
-            return Ok("Migrations applied (DEBUG mode).");
-#else
-            if (!_env.IsDevelopment() && !User.IsInRole("Admin"))
-                return Forbid();
             _context.Database.Migrate();
             return Ok("Migrations applied.");
-#endif
         }
     }
 } 
