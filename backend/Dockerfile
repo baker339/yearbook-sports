@@ -14,8 +14,8 @@ COPY YearbookSports.API YearbookSports.API
 WORKDIR /src/YearbookSports.API
 RUN dotnet publish -c Release -o /app/publish
 
-# Runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+# Runtime image (use SDK so dotnet-ef is available)
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS final
 WORKDIR /app
 
 # Install dotnet-ef tool for migrations
