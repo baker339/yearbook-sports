@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy solution and project files
-COPY backend/YearbookSports.API/*.csproj backend/YearbookSports.API/
+COPY backend/YearbookSports.API/YearbookSports.API.csproj backend/YearbookSports.API/
 COPY *.sln ./
 
 # Restore as distinct layers
