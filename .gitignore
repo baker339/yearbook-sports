@@ -21,6 +21,10 @@ obj/
 *.pdb
 *.log
 
+# .NET appsettings (prevent secrets from being committed)
+backend/YearbookSports.API/appsettings.Development.json
+backend/YearbookSports.API/appsettings.Production.json
+
 # Environment variables
 .env
 .env.local
