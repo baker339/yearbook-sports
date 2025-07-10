@@ -9,9 +9,8 @@ COPY *.sln ./
 # Restore as distinct layers
 RUN dotnet restore backend/YearbookSports.API/YearbookSports.API.csproj
 
-# Copy everything else
-COPY backend/YearbookSports.API/. backend/YearbookSports.API/
-COPY backend/YearbookSports.API/entrypoint.sh backend/YearbookSports.API/entrypoint.sh
+# Copy everything else (including subfolders)
+COPY backend/YearbookSports.API backend/YearbookSports.API
 
 WORKDIR /src/backend/YearbookSports.API
 RUN dotnet publish -c Release -o /app/publish
