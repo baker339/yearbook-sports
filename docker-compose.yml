@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database
+  # PostgreSQL Database (for local development)
   postgres:
     image: postgres:15-alpine
     container_name: yearbook-postgres
@@ -21,6 +21,8 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    profiles:
+      - local
 
   # .NET Backend API
   backend:
@@ -30,10 +32,10 @@ services:
     container_name: yearbook-backend
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=postgres;Database=yearbook_sports;Username=yearbook_user;Password=yearbook_password
-      - JWT__Secret=your-super-secret-jwt-key-change-in-production
-      - JWT__Issuer=yearbook-sports
-      - JWT__Audience=yearbook-sports-users
+      - ConnectionStrings__DefaultConnection=${DATABASE_URL:-Host=postgres;Database=yearbook_sports;Username=yearbook_user;Password=yearbook_password}
+      - JWT__Secret=${JWT_SECRET:-your-super-secret-jwt-key-change-in-production}
+      - JWT__Issuer=${JWT_ISSUER:-yearbook-sports}
+      - JWT__Audience=${JWT_AUDIENCE:-yearbook-sports-users}
     ports:
       - "5000:5000"
       - "5001:5001"

@@ -50,10 +50,16 @@ namespace YearbookSports.API.Entities
     public class ArticleAd
     {
         public int Id { get; set; }
+        
         public int ArticleId { get; set; }
+        
         public int AdCampaignId { get; set; }
+        
         public AdPosition Position { get; set; }
+        
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        
+        // Navigation properties
         public virtual Article Article { get; set; } = null!;
         public virtual AdCampaign AdCampaign { get; set; } = null!;
     }
@@ -61,10 +67,16 @@ namespace YearbookSports.API.Entities
     public class PodcastAd
     {
         public int Id { get; set; }
+        
         public int PodcastId { get; set; }
+        
         public int AdCampaignId { get; set; }
+        
         public AdPosition Position { get; set; }
+        
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        
+        // Navigation properties
         public virtual Podcast Podcast { get; set; } = null!;
         public virtual AdCampaign AdCampaign { get; set; } = null!;
     }
@@ -72,11 +84,18 @@ namespace YearbookSports.API.Entities
     public class AdImpression
     {
         public int Id { get; set; }
+        
         public int AdCampaignId { get; set; }
+        
         public int? UserId { get; set; }
+        
         public string? IpAddress { get; set; }
+        
         public string? UserAgent { get; set; }
+        
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        
+        // Navigation properties
         public virtual AdCampaign AdCampaign { get; set; } = null!;
         public virtual User? User { get; set; }
     }
