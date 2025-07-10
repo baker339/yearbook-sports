@@ -17,7 +17,7 @@ RUN dotnet publish -c Release -o /app/publish
 # Run migrations during build
 RUN dotnet tool install --global dotnet-ef && \
     export PATH="$PATH:/root/.dotnet/tools" && \
-    dotnet ef database update --no-build --project YearbookSports.API.csproj
+    dotnet ef database update --configuration Release --no-build --project YearbookSports.API.csproj
 
 # Runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
