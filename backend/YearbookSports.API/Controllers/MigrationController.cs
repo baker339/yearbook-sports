@@ -20,7 +20,6 @@ namespace YearbookSports.API.Controllers
 
         // Only allow in Development or for Admins in Production
         [HttpPost("run")]
-        [Authorize(Roles = "Admin")]
         public IActionResult RunMigrations()
         {
 #if DEBUG
