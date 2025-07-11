@@ -17,6 +17,7 @@ namespace YearbookSports.API.Entities
         
         public string? BannerImageUrl { get; set; }
         
+        [Required]
         public int SportId { get; set; }
         
         public bool IsActive { get; set; } = true;
@@ -26,7 +27,7 @@ namespace YearbookSports.API.Entities
         public DateTime? UpdatedAt { get; set; }
         
         // Navigation properties
-        public virtual Sport Sport { get; set; } = null!;
+        public virtual Sport? Sport { get; set; }
         public virtual ICollection<Team> Teams { get; set; } = new List<Team>();
         public virtual ICollection<Article> Articles { get; set; } = new List<Article>();
         public virtual ICollection<Podcast> Podcasts { get; set; } = new List<Podcast>();

@@ -31,6 +31,7 @@ namespace YearbookSports.API.Entities
         [StringLength(500)]
         public string? Bio { get; set; }
         
+        [Required]
         public int TeamId { get; set; }
         
         public int SportId { get; set; }
@@ -42,8 +43,8 @@ namespace YearbookSports.API.Entities
         public DateTime? UpdatedAt { get; set; }
         
         // Navigation properties
-        public virtual Team Team { get; set; } = null!;
-        public virtual Sport Sport { get; set; } = null!;
+        public virtual Team? Team { get; set; }
+        public virtual Sport? Sport { get; set; }
         public virtual ICollection<Article> Articles { get; set; } = new List<Article>();
         public virtual ICollection<Podcast> Podcasts { get; set; } = new List<Podcast>();
         public virtual ICollection<PlayerStats> Statistics { get; set; } = new List<PlayerStats>();

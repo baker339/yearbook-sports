@@ -1,0 +1,55 @@
+Yearbook Sports CMS - Setup Notes
+==================================
+
+## CMS Requirements
+
+### Admin View
+- All content creator capabilities (CRUD for sports, leagues, teams, players, articles, podcasts, assets, etc.)
+- Role management (assign/revoke admin/content creator/user roles)
+- (Future) Analytics, ad management, moderation tools
+
+### Content Creator View
+- CRUD for all core entities: sports, leagues, teams, players, etc.
+- Asset management: upload images (logos, jerseys, banners), audio, and video
+- Rich text editor for writing articles
+- Podcast management: upload audio/video, manage episodes
+- Historical data management: add/edit historical jerseys, logos, and other non-article content
+
+## UI/UX Plan
+- Sidebar-based dashboard for both /admin and /creator
+- Role-based navigation (admin sees all, creator sees subset)
+- Entity management pages: list, add, edit, delete for each entity
+- Placeholders for rich text editor, asset uploaders, and role management
+
+## Next Steps
+1. Scaffold /admin and /creator routes in Next.js frontend
+2. Add sidebar/dashboard layout with navigation for all entities
+3. Create placeholder pages for each entity and feature
+4. Mock role-based access for easy toggling
+5. Use Tailwind for styling and modern UI
+
+## Outstanding Questions
+- UI library: Using Tailwind (default)
+- Auth: Mocked for now, real auth later
+- Rich text editor: To be decided (TipTap, Slate, Quill, etc.)
+- File storage: To be decided (Supabase Storage, S3, etc.)
+
+## Current State (as of last edit)
+- Global color palette refactored: only white, grey, black, and green used throughout the site
+- Dynamic sidebar and top navigation working, powered by CMS data (mocked for now)
+- All old color references removed from Tailwind and CSS
+- CMS dashboard and navigation structure in place
+
+## TODO / Next Steps
+- Scaffold dynamic entity pages: /cms/sports/[sportId], /cms/leagues/[leagueId], /cms/teams/[teamId]
+- Team page: add players and team history management UI
+- Wire up navigation and entity pages to backend API (replace mock data)
+- Add CRUD UI for sports, leagues, teams, players, podcasts, historical assets
+- Add asset uploaders (images, audio, video)
+- Add rich text editor for articles
+- Add role management UI (for future use)
+- Polish UI/UX and test on mobile
+- Implement authentication and real role-based access (future)
+
+---
+If cutoff, continue by scaffolding the /admin and /creator dashboard structure and entity management pages as described above. 

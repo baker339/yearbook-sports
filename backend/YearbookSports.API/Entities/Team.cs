@@ -28,6 +28,7 @@ namespace YearbookSports.API.Entities
         
         public int SportId { get; set; }
         
+        [Required]
         public int LeagueId { get; set; }
         
         public bool IsActive { get; set; } = true;
@@ -37,8 +38,8 @@ namespace YearbookSports.API.Entities
         public DateTime? UpdatedAt { get; set; }
         
         // Navigation properties
-        public virtual Sport Sport { get; set; } = null!;
-        public virtual League League { get; set; } = null!;
+        public virtual Sport? Sport { get; set; }
+        public virtual League? League { get; set; }
         public virtual ICollection<Player> Players { get; set; } = new List<Player>();
         public virtual ICollection<Article> Articles { get; set; } = new List<Article>();
         public virtual ICollection<Podcast> Podcasts { get; set; } = new List<Podcast>();
