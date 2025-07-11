@@ -4,7 +4,7 @@ import * as React from "react";
 interface Team {
   id: number;
   name: string;
-  leagueId: number;
+  leagueId: number | null;
 }
 
 interface League { id: number; name: string; }
