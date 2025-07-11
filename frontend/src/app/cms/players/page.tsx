@@ -5,7 +5,7 @@ interface Player {
   id: number;
   firstName: string;
   lastName: string;
-  teamId: number;
+  teamId: number | null;
 }
 
 interface Team { id: number; name: string; }
