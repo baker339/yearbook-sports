@@ -190,7 +190,7 @@ export default function LeaguesListPage() {
                   body: JSON.stringify({ ...editLeague, name: editName, sportId: editSportId }),
                 });
                 if (!res.ok) throw new Error("Failed to update league");
-                setLeagues((prev) => prev.map(l => l.id === editLeague.id ? { ...l, name: editName, sportId: editSportId } : l));
+                setLeagues((prev) => prev.map(l => l.id === editLeague.id ? { ...l, name: editName, sportId: Number(editSportId ?? 0) } : l));
                 setEditLeague(null);
               } catch (err: any) {
                 setError(err.message || "Unknown error");
